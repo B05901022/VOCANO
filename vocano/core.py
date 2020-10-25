@@ -16,6 +16,8 @@ from apex import amp
 from pathlib import Path
 from tqdm import tqdm
 
+from google_drive_downloader import GoogleDriveDownloader as gdd
+
 from .model.PyramidNet_ShakeDrop import PyramidNet_ShakeDrop
 from .utils.evaluate_tools import Smooth_sdt6_modified, Naive_pitch
 from .utils.dataset import EvalDataset
@@ -35,6 +37,11 @@ if CUPY_EXIST:
 OS_PLATFORM = platform.system()
 
 class SingingVoiceTranscription:
+    
+    FILE_ID = {'PyramidNet_ShakeDrop': '1m9YT7207CXQv1KdU0ivkRQrwvPnOuR3W',
+               'Patch_CNN': '1tq_LcZwWQYV7wM6dBAeDZeQn39UNkPdl'}
+    DOWNLOAD_PATH = {'PyramidNet_ShakeDrop': './checkpoint/model.pt',
+                     'Patch_CNN': './checkpoint/model3_patch25.npy'}
     
     def __init__(self, args):
         """
@@ -88,9 +95,26 @@ class SingingVoiceTranscription:
         if CUPY_EXIST:
             cp._default_memory_pool.free_all_blocks()
         torch.cuda.empty_cache()
+        
+    def _download_from_googledrive(self, file_id, dest_path):
+        gdd.download_file_from_google_drive(file_id, dest_path)
+    
+    def download_ckpt(self):
+        for file in self.FILE_ID:
+            self._download_from_googledrive(self.FILE_ID[file], self.DOWNLOAD_PATH[file])
     
     def transcription(self):
         
+        # --- download model ---
+        if not Path("./checkpoint/model.pt").is_file():
+            print(f"PyramidNet model checkpoint not found. Automatically download to VOCANO/checkpoint/ .")
+            self._download_from_googledrive(self.FILE_ID['PyramidNet_ShakeDrop'], self.DOWNLOAD_PATH['PyramidNet_ShakeDrop'])
+            print(f"PyramidNet model checkpoint downloaded.")
+        if not Path("./checkpoint/model3_patch25.npy").is_file():
+            print(f"Patch-CNN model checkpoint not found. Automatically download to VOCANO/checkpoint/ .")
+            self._download_from_googledrive(self.FILE_ID['Patch_CNN'], self.DOWNLOAD_PATH['Patch_CNN'])
+            print(f"Patch-CNN model checkpoint downloaded.")
+            
         # --- feature/melody extraction ---
         if self.args.use_pre_extracted:
             feat_name = self.args.feat_dir / f"{self.args.name}_feat.npy"
@@ -119,6 +143,13 @@ class SingingVoiceTranscription:
         self.save_wav(self.synth_midi, self.args.output_wav_dir)
         
     def data_preprocessing(self):
+        
+        # --- download model ---
+        if not Path("./checkpoint/model3_patch25.npy").is_file():
+            print(f"Patch-CNN model checkpoint not found. Automatically download to VOCANO/checkpoint/ .")
+            self._download_from_googledrive(self.FILE_ID['Patch_CNN'], self.DOWNLOAD_PATH['Patch_CNN'])
+            print(f"Patch-CNN model checkpoint downloaded.")
+        
         # --- feature/melody extraction ---
         self.feature, self.pitch = self.feature_extraction(self.args.wavfile_dir, self.args.use_cp)
         
