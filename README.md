@@ -1,6 +1,6 @@
 # VOCANO: Transcribing singing vocal notes in polyphonic music using semi-supervised learning
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/B05901022/VOCANO/blob/master/VOCANO.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/B05901022/VOCANO/blob/main/VOCANO.ipynb)
 
 In this repository, we present a VOCAl NOte transcription tool, named VOCANO, which can help transcribing vocal into MIDI files. We decompose singing voice transcription(SVT) into two parts: pitch extraction and note segmentation. Our pitch extraction model is a pre-trained Patch-CNN, which was from [our previous work][Vocal melody extraction using patch-based CNN]; our note segmentation is a PyramidNet-110 with ShakeDrop regularization, which is an improvement from [Hierarchical classification networks][Hierarchical classification networks for singing voice segmentation and transcription] trained by semi-supervised learning. See our paper for more details.
 
