@@ -1,6 +1,10 @@
-# VOCANO: Transcribing singing vocal notes in polyphonic music using semi-supervised learning
+# VOCANO: A note transcription framework for singing voice in polyphonic music
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/B05901022/VOCANO/blob/main/VOCANO.ipynb)
+
+Inference code of our work **VOCANO: A note transcription framework for singing voice in polyphonic music**. For training details, please check [this repo][Note-Segmentation-SSL]. **This work is now also working as part of the [Omnizart][Omnizart] project, which is able to transcribe pitched instruments, vocal melody, chords, drum events, and beat.** Complete demo including the whole Omnizart transcription pipeline is available on the [Omnizart Website][Omnizart Website]. Omnizart is powered by the research outcomes from [Music and Culture Technology (MCT) Lab][Music and Culture Technology (MCT) Lab].
+
+## Overview
 
 In this repository, we present a VOCAl NOte transcription tool, named VOCANO, which can help transcribing vocal into MIDI files. We decompose singing voice transcription(SVT) into two parts: pitch extraction and note segmentation. Our pitch extraction model is a pre-trained Patch-CNN, which was from [our previous work][Vocal melody extraction using patch-based CNN]; our note segmentation is a PyramidNet-110 with ShakeDrop regularization, which is an improvement from [Hierarchical classification networks][Hierarchical classification networks for singing voice segmentation and transcription] trained by semi-supervised learning. See our paper for more details.
 
@@ -56,6 +60,34 @@ Recently, multiple source separation models like [Demucs][Demucs] are developed 
 
 If you wish to use your own melody extraction model, please export your extracted pitch in length of our extracted feature (feature.shape[1]), and data in Hertz unit. The dtype of exported pitch should be np.float64.
 
+## Citation
+
+If you find our work useful, please consider citing our paper.
+
+* VOCANO
+```
+@inproceedings{vocano,
+	title={{VOCANO}: A Note Transcription Framework For Singing Voice In Polyphonic Music},
+	author={Hsu, Jui-Yang and Su, Li},
+	booktitle={Proc. International Society of Music Information Retrieval Conference (ISMIR)},
+	year={2021}
+}
+``` 
+
+* Omnizart
+```
+@article{wu2021omnizart,
+	title={Omnizart: A General Toolbox for Automatic Music Transcription},
+	author={Wu, Yu-Te and Luo, Yin-Jyun and Chen, Tsung-Ping and Wei, I-Chieh and Hsu, Jui-Yang and Chuang, Yi-Chin and Su, Li},
+	journal={arXiv preprint arXiv:2106.00497},
+	year={2021}
+}
+```
+
+[Note-Segmentation-SSL]: https://github.com/B05901022/Note-Segmentation-SSL
+[Omnizart]: https://github.com/Music-and-Culture-Technology-Lab/omnizart
+[Omnizart Website]: https://music-and-culture-technology-lab.github.io/omnizart-doc/
+[Music and Culture Technology (MCT) Lab]: https://sites.google.com/view/mctl/home
 [Vocal melody extraction using patch-based CNN]: https://arxiv.org/abs/1804.09202
 [Hierarchical classification networks for singing voice segmentation and transcription]: http://archives.ismir.net/ismir2019/paper/000111.pdf
 [Our demo googledrive]: https://drive.google.com/drive/folders/1Ebao0fih7JtXHNZ1XCu6WHYQTVsl7c8J?usp=sharing
