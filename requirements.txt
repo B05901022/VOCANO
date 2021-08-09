@@ -15,4 +15,4 @@ scipy==1.5.3
 six==1.15.0
 torch==1.6.0+cu101
 tqdm==4.50.2
-urllib3==1.26.5
+urllib3==1.25.11

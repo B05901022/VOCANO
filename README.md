@@ -16,10 +16,25 @@ Examples using CMedia dataset and ISMIR2014 dataset are shown [here][Our demo go
 
 Our testing is performed under Python3 and CUDA10.1, under PyTorch framework. You can either use our `requirements.txt` or manually install packages needed. For faster inferencing under NVIDIA GTX/RTX devices, it is recommended to install [CuPy][CuPy] and use `-use_cp` flag while running our code.
 
+### Clone this repository
+
 ```bash
 $ git clone https://github.com/B05901022/VOCANO.git
 $ cd VOCANO
-$ pip install -r requirements.txt
+```
+
+### Install [NVIDIA-apex][NVIDIA-apex]
+
+```bash
+$ git clone https://github.com/NVIDIA/apex.git
+$ pip install -v --disable-pip-version-check --no-cache-dir ./apex
+$ bash setup.sh
+```
+
+### Install requirements
+
+```bash
+$ pip install -r requirements.txt -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
 ## How to run
@@ -88,6 +103,7 @@ If you find our work useful, please consider citing our paper.
 [Omnizart]: https://github.com/Music-and-Culture-Technology-Lab/omnizart
 [Omnizart Website]: https://music-and-culture-technology-lab.github.io/omnizart-doc/
 [Music and Culture Technology (MCT) Lab]: https://sites.google.com/view/mctl/home
+[NVIDIA-apex]: https://github.com/NVIDIA/apex
 [Vocal melody extraction using patch-based CNN]: https://arxiv.org/abs/1804.09202
 [Hierarchical classification networks for singing voice segmentation and transcription]: http://archives.ismir.net/ismir2019/paper/000111.pdf
 [Our demo googledrive]: https://drive.google.com/drive/folders/1Ebao0fih7JtXHNZ1XCu6WHYQTVsl7c8J?usp=sharing
